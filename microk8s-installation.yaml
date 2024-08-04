@@ -1,0 +1,37 @@
+---
+- name: Installing and configuring MicroK8s
+  hosts: slave3
+  become: yes
+  vars_files:
+    - vars/microk8s.yaml
+
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install MicroK8s
+      snap:
+        name: microk8s
+        classic: yes
+        channel: "{{ microk8s_channel }}"
+        state: present
+
+    - name: adding user to microk8s group
+      user:
+        name: "{{ user }}"
+        groups: "microk8s"
+        append: yes
+
+    - name: Change ownership of .kube directory
+      file:
+        path: "/home/{{ user }}/.kube"
+        owner: "{{ user }}"
+        recurse: yes
+        state: directory
+
+    - name: Enable MicroK8s
+      command: "microk8s enable dashboard dns registry istio"
+
+    - name: Create alias for kubectl
+      command: "snap alias microk8s.kubectl kubectl"

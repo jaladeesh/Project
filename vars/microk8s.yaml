@@ -1,0 +1,2 @@
+microk8s_channel: "1.30"
+user: "ubuntu"

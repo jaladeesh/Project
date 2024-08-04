@@ -1,6 +1,6 @@
 ---
 - name: Installing and configuring MicroK8s
-  hosts: slave3
+  hosts: slave3-k8s
   become: yes
   vars_files:
     - vars/microk8s.yaml

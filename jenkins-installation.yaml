@@ -1,4 +1,4 @@
-- hosts: slave1
+- hosts: slave1-jenkins
   remote_user: ubuntu
   become: yes
   tasks:

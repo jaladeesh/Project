@@ -1,4 +1,4 @@
-- hosts: slave2
+- hosts: slave2-nexus
   become: yes
   tasks:
     - name: Update apt packages

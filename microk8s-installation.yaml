@@ -3,7 +3,7 @@
   hosts: slave3-k8s
   become: yes
   vars_files:
-    - vars/microk8s.yaml
+    - /etc/ansible/microk8svars.yaml
 
   tasks:
     - name: Update apt cache

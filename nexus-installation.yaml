@@ -1,5 +1,8 @@
 - hosts: slave2-nexus
   become: yes
+  vars_files:
+    - /etc/ansible/nexusvars.yaml
+
   tasks:
     - name: Update apt packages
       apt:
@@ -17,7 +20,7 @@
 
     - name: Downloading Nexus
       get_url:
-        url: "https://download.sonatype.com/nexus/3/nexus-3.70.1-02-java11-unix.tar.gz"
+        url: "{{ url }}"
         dest: "/nexus-3.70.1-02-java11-unix.tar.gz"
 
     - name: Extract the Nexus tar file
@@ -34,16 +37,16 @@
     - name: Set ownership and group on Nexus directory to nexus
       file:
         path: "/nexus-3.70.1-02"
-        owner: "nexus"
-        group: "nexus"
+        owner: "{{ owner }}"
+        group: "{{ group }}"
         state: directory
         recurse: yes  
 
     - name: Set ownership on Nexus to nexus on data directory
       file:
         path: "/sonatype-work"
-        owner: "nexus"
-        group: "nexus"
+        owner: "{{ owner }}"
+        group: "{{ group }}"
         state: directory
         recurse: yes
 

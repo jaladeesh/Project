@@ -1,6 +1,9 @@
 - hosts: slave1-jenkins
-  remote_user: ubuntu
+  remote_user: "ubuntu"
   become: yes
+  vars_files:
+    - /etc/ansible/jenkinsvars.yaml
+    
   tasks:
   - name: To update packages
     command: apt update
@@ -12,12 +15,12 @@
 
   - name: adding repo key
     apt_key:
-      url: https://pkg.jenkins.io/debian/jenkins.io-2023.key
+      url: "{{ url }}"
       state: present
 
   - name: adding repo
     apt_repository:
-      repo: 'deb http://pkg.jenkins.io/debian-stable binary/'
+      repo: "{{ repo }}"
       state: present
 
   - name: To update packages

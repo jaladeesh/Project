@@ -1,3 +1,0 @@
-replicas: 2
-namespace: default
-nodePort: 31234
